@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grounds for Good</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Spectral:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF2EE; --sheet:#F8FAF7; --ink:#1F2E3A; --ink-2:#4A5A63; --line:#B9C5BF;
+  --green:#2F6B4F; --green-soft:#DCE8E0; --ochre:#B8892B; --ochre-soft:#F1E6CC;
+  --flag:#A23B2A; --flag-soft:#F4DDD8; --unit:#2F6B4F; --church:#7A8A93; --park:#C9D2CD;
+  --u-worship:#7A8A93; --u-childcare:#2F6B4F; --u-office:#3E6A8A; --u-tutoring:#B8892B; --u-senior:#8A5A7A; --u-retail:#A0603A; --u-community:#5E7F3A; --u-empty:#DDE4DF;
+  --serif:"Spectral",Georgia,"Times New Roman",serif;
+  --sans:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C21; --sheet:#1B252B; --ink:#E4EAE6; --ink-2:#A9B6B0; --line:#3A4A50;
+    --green:#7DC3A0; --green-soft:#21362C; --ochre:#E0B556; --ochre-soft:#3A3120;
+    --flag:#F08C78; --flag-soft:#3D2420; --unit:#6FB892; --church:#8B9BA3; --park:#2E3B40;
+    --u-worship:#8B9BA3; --u-childcare:#6FB892; --u-office:#7BA9CC; --u-tutoring:#E0B556; --u-senior:#C793B6; --u-retail:#D9946A; --u-community:#9CC26E; --u-empty:#26323A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C21; --sheet:#1B252B; --ink:#E4EAE6; --ink-2:#A9B6B0; --line:#3A4A50;
+  --green:#7DC3A0; --green-soft:#21362C; --ochre:#E0B556; --ochre-soft:#3A3120;
+  --flag:#F08C78; --flag-soft:#3D2420; --unit:#6FB892; --church:#8B9BA3; --park:#2E3B40;
+  --u-worship:#8B9BA3; --u-childcare:#6FB892; --u-office:#7BA9CC; --u-tutoring:#E0B556; --u-senior:#C793B6; --u-retail:#D9946A; --u-community:#9CC26E; --u-empty:#26323A;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--sans)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+img,svg{max-width:100%}
+a{color:var(--green)}
+:focus-visible{outline:3px solid var(--ochre);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 20px 64px}
+
+/* account bar + steps */
+.acct{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--sheet);border-bottom:1px solid var(--line)}
+.acct-in{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.who{font-size:.88rem;color:var(--ink-2)}
+.who b{color:var(--ink)}
+.demo-pill{display:inline-block;font-size:.75rem;font-weight:600;background:var(--ochre-soft);color:var(--ochre);padding:2px 8px;border-radius:10px;margin-left:6px}
+.steps{display:flex;gap:4px;flex-wrap:wrap;overflow-x:auto}
+.steps a{font-size:.85rem;font-weight:600;text-decoration:none;color:var(--ink-2);padding:6px 10px;border-radius:4px;white-space:nowrap}
+.steps a[aria-current="true"]{background:var(--ink);color:var(--paper)}
+.save-state{font-size:.8rem;color:var(--ink-2);min-width:9ch}
+
+header.top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding:18px 0}
+h1{font:600 clamp(2rem,4.6vw,3.1rem)/1.05 var(--serif);margin:0;letter-spacing:-.01em;max-width:18ch}
+.lede{color:var(--ink-2);max-width:56ch;margin:10px 0 0}
+.guard{font-size:.85rem;color:var(--ink-2);max-width:34ch;border-left:3px solid var(--ochre);padding-left:12px;margin:0}
+
+section.step{margin-top:40px}
+section.step > h2{font:600 1.75rem var(--serif);margin:0 0 4px}
+.sub{color:var(--ink-2);margin:0 0 18px;max-width:72ch}
+.panel{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:20px}
+.grid{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:24px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+fieldset{border:0;padding:0;margin:0 0 16px}
+legend{font:600 1.1rem var(--serif);margin-bottom:6px;padding:0}
+label{display:block;font-size:.85rem;font-weight:600;margin:10px 0 4px}
+.hint{font-weight:400;color:var(--ink-2)}
+input,select,textarea{width:100%;font:inherit;font-size:.95rem;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:8px 10px}
+textarea{min-height:150px;font-size:.82rem;line-height:1.45;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+.checks label,.radios label{display:flex;gap:8px;align-items:center;font-weight:500;margin:4px 0}
+.checks input,.radios input{width:auto;margin:0}
+button{font:600 .95rem var(--sans);border-radius:4px;padding:10px 16px;cursor:pointer;border:1.5px solid var(--ink);background:transparent;color:var(--ink)}
+button.primary{background:var(--green);border-color:var(--green);color:var(--sheet)}
+button:disabled{opacity:.55;cursor:not-allowed}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.small{font-size:.8rem;padding:6px 10px}
+.status{font-size:.9rem;color:var(--ink-2);margin-top:10px;min-height:1.4em}
+.status.err{color:var(--flag)}
+.hidden{display:none !important}
+
+/* week strip: the signature visual */
+.week{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:18px}
+.week h3{font:600 1.3rem var(--serif);margin:0}
+.week svg{display:block;width:100%;height:auto;margin-top:10px}
+.use-big{font:600 clamp(1.8rem,4vw,2.6rem)/1 var(--serif);margin:10px 0 2px}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-top:8px}
+.sw{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:5px;border-radius:2px}
+
+/* matcher */
+.match{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.opt{background:var(--sheet);border:1px solid var(--line);border-left:5px solid var(--c,var(--green));border-radius:4px;padding:14px 16px}
+.opt h3{font:600 1.15rem var(--serif);margin:0 0 4px}
+.opt p{margin:4px 0;font-size:.9rem}
+.opt .meta{font-size:.8rem;color:var(--ink-2)}
+.fit{font-size:.78rem;font-weight:600;padding:2px 8px;border-radius:3px;display:inline-block;margin-bottom:6px}
+.fit.hi{background:var(--green-soft);color:var(--green)} .fit.mid{background:var(--ochre-soft);color:var(--ochre)} .fit.lo{background:var(--flag-soft);color:var(--flag)}
+
+/* rooms */
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:600px}
+th,td{text-align:left;vertical-align:middle;padding:8px 8px;border-bottom:1px solid var(--line)}
+th{font-weight:600;font-size:.82rem;color:var(--ink-2)}
+td input,td select{padding:6px 8px;font-size:.88rem}
+td.n{width:100px} td.c{width:70px;text-align:center}
+.math{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:14px}
+.math div{background:var(--sheet);padding:10px 12px}
+.math b{display:block;font:600 1.35rem var(--serif)}
+.math span{font-size:.8rem;color:var(--ink-2)}
+.math .bind{background:var(--ochre-soft)}
+
+/* plat */
+.plat{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:18px}
+.plat-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.plat-head h3{font:600 1.3rem var(--serif);margin:0}
+.plat svg{display:block;width:100%;height:auto;margin-top:10px}
+
+/* read */
+.headline{font:500 1.4rem/1.35 var(--serif);border-left:4px solid var(--green);padding:6px 0 6px 16px;margin:0 0 18px;max-width:62ch}
+.verdict{display:inline-block;font-size:.82rem;font-weight:600;padding:3px 10px;border-radius:3px}
+.v-promising{background:var(--green-soft);color:var(--green)}
+.v-relief{background:var(--ochre-soft);color:var(--ochre)}
+.v-difficult{background:var(--flag-soft);color:var(--flag)}
+.cite{font-size:.8rem;font-weight:600}
+.cite.ok{color:var(--green)} .cite.no{color:var(--flag)}
+.obst{border-top:2px solid var(--ink);padding:12px 0 14px}
+.obst h4{font:600 1.08rem var(--serif);margin:0 0 6px}
+.obst p{margin:4px 0}
+.obst .counter{background:var(--green-soft);padding:8px 12px;border-radius:4px;margin-top:8px}
+.prelim{background:var(--ochre-soft);border:1px dashed var(--ochre);padding:14px 16px;border-radius:4px}
+.prelim h4,.plainh{font:600 1.08rem var(--serif);margin:0 0 6px}
+ul.tight{margin:6px 0;padding-left:20px}
+.law{border:1px solid var(--line);border-left:4px solid var(--ochre);background:var(--sheet);padding:12px 16px;border-radius:4px;margin:0 0 16px;font-size:.9rem;max-width:80ch}
+.law p{margin:4px 0}
+
+/* partners */
+.ptype{border-top:1px solid var(--line);padding:12px 0}
+.ptype h4{font:600 1.05rem var(--serif);margin:0 0 4px}
+.ptype p{margin:3px 0;font-size:.9rem}
+.contact{display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+@media (max-width:640px){.contact{grid-template-columns:1fr 1fr}}
+.email{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:14px;white-space:pre-wrap;font-size:.9rem}
+.examples li{margin:6px 0;font-size:.9rem}
+
+/* slides */
+.deck{border:1px solid var(--line);border-radius:6px;background:var(--sheet);overflow:hidden}
+.slide{aspect-ratio:16/9;padding:clamp(18px,4vw,48px);display:flex;flex-direction:column;justify-content:center;background:var(--ink);color:var(--paper)}
+.slide h3{font:600 clamp(1.3rem,3.2vw,2.3rem)/1.15 var(--serif);margin:0 0 14px;max-width:24ch}
+.slide ul{margin:0;padding-left:1.2em;font-size:clamp(.85rem,1.6vw,1.1rem);max-width:60ch}
+.slide li{margin:4px 0}
+.slide .num{font-size:.8rem;opacity:.7;margin-bottom:10px}
+.deck-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap}
+.notes{font-size:.88rem;color:var(--ink-2);padding:0 14px 14px}
+.onepager{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:24px;max-width:72ch}
+.onepager h3{font:600 1.6rem/1.2 var(--serif);margin:0}
+.onepager .tag{color:var(--ink-2);font-style:italic;font-family:var(--serif);margin:4px 0 14px}
+.onepager h4{font:600 1.05rem var(--serif);margin:16px 0 4px}
+.onepager p{margin:0}
+.tp h4{font:600 1.1rem var(--serif);margin:0 0 6px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+
+/* sign-in */
+.gate{position:fixed;inset:0;z-index:20;background:var(--paper);overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 6vh) 20px calc(env(safe-area-inset-bottom,0px) + 40px)}
+.gate-card{max-width:880px;width:100%;display:grid;grid-template-columns:1.1fr 1fr;gap:28px}
+@media (max-width:760px){.gate-card{grid-template-columns:1fr}}
+.gate h1{max-width:14ch}
+.cred{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:20px}
+.cred h2{font:600 1.3rem var(--serif);margin:0 0 4px}
+.credbox{background:var(--ochre-soft);border:1px dashed var(--ochre);border-radius:4px;padding:10px 12px;font-size:.88rem;margin:10px 0}
+.credbox code{font:600 .92rem var(--sans)}
+.or{display:flex;align-items:center;gap:10px;color:var(--ink-2);font-size:.85rem;margin:16px 0 8px}
+.or::before,.or::after{content:"";flex:1;border-top:1px solid var(--line)}
+footer{margin-top:48px;border-top:1px solid var(--line);padding-top:14px;font-size:.82rem;color:var(--ink-2);max-width:82ch}
+@media (prefers-reduced-motion:no-preference){ .cell{transition:fill .25s} }
+</style>
+</head>
+<body>
+
+<!-- ============ SIGN-IN ============ -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div>
+      <h1>Your church is full on Sunday. What about Tuesday?</h1>
+      <p class="lede">A guided first look for pastors and church boards: what your building and land could do during the week, what the rules likely say, who you'd need to partner with, and a presentation for your board and city.</p>
+      <p class="guard" style="margin-top:18px">An introductory accelerator, not a decision. Every finding needs review by an architect, land-use attorney or city planner before you act.</p>
+    </div>
+    <div class="cred">
+      <h2>Sign in</h2>
+      <p class="hint" style="margin:0;font-size:.9rem">Testers: use the demo account below. It loads a fully filled-in sample church so you can try every step.</p>
+      <div class="credbox">Demo account <code>pastor.demo@gracefellowship.test</code><br>Access code <code>GRACE-DEMO-2026</code></div>
+      <label for="gEmail">Email</label>
+      <input id="gEmail" type="email" autocomplete="off" value="pastor.demo@gracefellowship.test">
+      <label for="gCode">Access code</label>
+      <input id="gCode" autocomplete="off" value="GRACE-DEMO-2026">
+      <div class="btns"><button type="button" class="primary" id="gDemo">Sign in to demo account</button></div>
+      <p class="status" id="gStatus" role="status"></p>
+      <div class="or">or</div>
+      <button type="button" id="gBlank" style="width:100%">Start a blank workspace for my church</button>
+      <p class="hint" style="font-size:.8rem;margin:8px 0 0" id="gSaveNote">Your workspace saves in this browser on this device.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="acct">
+  <div class="acct-in">
+    <div class="who" id="who"></div>
+    <nav class="steps" aria-label="Steps" id="steps">
+      <a href="#space">1. Your space</a>
+      <a href="#uses">2. Weekday uses</a>
+      <a href="#land">3. Land &amp; housing</a>
+      <a href="#read">4. Feasibility read</a>
+      <a href="#partners">5. Partners</a>
+      <a href="#present">6. Presentation</a>
+    </nav>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span class="save-state" id="saveState" role="status"></span>
+      <button type="button" class="small" id="saveBtn">Save</button>
+      <button type="button" class="small" id="signOut">Switch account</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+<header class="top">
+  <div>
+    <h1 id="heroTitle">What could your church space become?</h1>
+    <p class="lede">Most pastors start inside the building: a daycare, nonprofit offices, tutoring, a senior program. Some look at the parking lot or a field for housing. This copilot helps you compare both, then shows the rules, the partners, and the pitch.</p>
+  </div>
+  <p class="guard">Findings cite only the zoning text you supply. Anything else is marked “Unverified” for your planner or attorney to confirm.</p>
+</header>
+
+<!-- STEP 1 -->
+<section class="step" id="space">
+  <h2>1. Your space and your goals</h2>
+  <p class="sub">Tell us what you have and why you're exploring. We'll suggest where to start.</p>
+  <div class="grid">
+    <form class="panel" id="fProfile" autocomplete="off" onsubmit="return false">
+      <fieldset>
+        <legend>Church</legend>
+        <label for="church">Church name</label><input id="church">
+        <label for="pastor">Your name</label><input id="pastor">
+        <label for="addr">Street address</label><input id="addr">
+        <div class="row">
+          <div><label for="city">City or county</label><input id="city"></div>
+          <div><label for="st">State</label><input id="st" maxlength="20"></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>What space do you have?</legend>
+        <div class="checks" id="spaces">
+          <label><input type="checkbox" value="classrooms">Classrooms</label>
+          <label><input type="checkbox" value="hall">Fellowship hall or gym</label>
+          <label><input type="checkbox" value="offices">Office suite</label>
+          <label><input type="checkbox" value="kitchen">Kitchen</label>
+          <label><input type="checkbox" value="lobby">Lobby or foyer</label>
+          <label><input type="checkbox" value="parking">Parking lot</label>
+          <label><input type="checkbox" value="field">Open field or vacant land</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>What matters most?</legend>
+        <div class="radios" id="goal">
+          <label><input type="radio" name="goal" value="serve">Meeting a need in our neighborhood</label>
+          <label><input type="radio" name="goal" value="income">Steady income to sustain the church</label>
+          <label><input type="radio" name="goal" value="both">Both</label>
+        </div>
+        <label for="appetite">How big a project can your board take on?</label>
+        <select id="appetite">
+          <option value="light">Something we could start this year</option>
+          <option value="moderate">A one- to two-year effort</option>
+          <option value="major">A major, multi-year project</option>
+        </select>
+      </fieldset>
+    </form>
+    <div>
+      <div class="week">
+        <h3>Your building's week</h3>
+        <p class="use-big" id="useBig">0%</p>
+        <p class="hint" style="margin:0;font-size:.88rem" id="useNote"></p>
+        <svg id="weekSvg" role="img" aria-label="Weekly building use chart, Monday to Sunday, 6am to 10pm"></svg>
+        <div class="legend" id="weekLegend"></div>
+      </div>
+    </div>
+  </div>
+  <h3 class="plainh" style="margin:26px 0 10px">Where to start</h3>
+  <div class="match" id="match"></div>
+</section>
+
+<!-- STEP 2 -->
+<section class="step" id="uses">
+  <h2>2. Weekday uses inside the building</h2>
+  <p class="sub">List the rooms that sit empty Monday to Friday and try a use for each. The week chart above updates as you go.</p>
+  <div class="panel">
+    <div class="tablewrap"><table>
+      <thead><tr><th>Room</th><th>Usable sq ft</th><th>Free on weekdays</th><th>Try a use</th><th></th></tr></thead>
+      <tbody id="rooms"></tbody>
+    </table></div>
+    <div class="btns"><button type="button" class="small" id="addRoom">Add a room</button></div>
+    <div class="row3" style="margin-top:8px">
+      <div><label for="rent">Lease rate you'd charge <span class="hint">$/sq ft/yr</span></label><input id="rent" type="number" min="0" step="0.5"></div>
+      <div><label for="perChild">Indoor space per child <span class="hint">sq ft</span></label><input id="perChild" type="number" min="10"></div>
+      <div><label for="seats">Fixed seats in sanctuary</label><input id="seats" type="number" min="0"></div>
+    </div>
+    <p class="hint" style="font-size:.82rem;margin:6px 0 0">These are your assumptions, not market data. Check the child care number against your state's licensing rule, and lease rates with a local commercial broker.</p>
+    <div class="math" id="roomMath"></div>
+  </div>
+</section>
+
+<!-- STEP 3 -->
+<section class="step" id="land">
+  <h2>3. Land and housing</h2>
+  <p class="sub">If you have a parking lot or field you'd consider, sketch how much housing it might hold. Skip this step if you're focused on the building.</p>
+  <div class="grid">
+    <form class="panel" id="fLand" autocomplete="off" onsubmit="return false">
+      <fieldset>
+        <legend>Site</legend>
+        <div class="row">
+          <div><label for="w">Lot frontage <span class="hint">ft</span></label><input id="w" type="number" min="40"></div>
+          <div><label for="d">Lot depth <span class="hint">ft</span></label><input id="d" type="number" min="40"></div>
+        </div>
+        <div class="row">
+          <div><label for="fp">Church footprint <span class="hint">sq ft</span></label><input id="fp" type="number" min="0"></div>
+          <div><label for="keep">Parking to keep <span class="hint">spaces</span></label><input id="keep" type="number" min="0"></div>
+        </div>
+        <label for="type">Housing type</label>
+        <select id="type">
+          <option value="micro">Micro-cottages (about 400 sq ft)</option>
+          <option value="cottage">Cottages (about 700 sq ft)</option>
+          <option value="town">Townhomes (2 stories)</option>
+        </select>
+      </fieldset>
+      <fieldset>
+        <legend>Zoning numbers</legend>
+        <label for="zone">Zoning district</label><input id="zone">
+        <div class="row3">
+          <div><label for="sf">Front <span class="hint">ft</span></label><input id="sf" type="number" min="0"></div>
+          <div><label for="ss">Side <span class="hint">ft</span></label><input id="ss" type="number" min="0"></div>
+          <div><label for="sr">Rear <span class="hint">ft</span></label><input id="sr" type="number" min="0"></div>
+        </div>
+        <div class="row">
+          <div><label for="dens">Lot area per unit <span class="hint">sq ft</span></label><input id="dens" type="number" min="100"></div>
+          <div><label for="pk">Parking per unit</label><input id="pk" type="number" min="0" step="0.25"></div>
+        </div>
+      </fieldset>
+    </form>
+    <div class="plat">
+      <div class="plat-head">
+        <h3 id="platTitle">Site sketch</h3>
+        <span class="hint" style="font-size:.85rem">Illustrative massing. Not a site plan.</span>
+      </div>
+      <svg id="svg" role="img" aria-label="Illustrative site sketch of the lot, setbacks, church, parking and housing"></svg>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--church)"></i>Church</span>
+        <span><i class="sw" style="background:var(--park)"></i>Parking kept</span>
+        <span><i class="sw" style="background:var(--unit)"></i>Housing units</span>
+        <span><i class="sw" style="border:1.5px dashed var(--ochre);background:transparent"></i>Setback line</span>
+      </div>
+      <div class="math" id="math"></div>
+      <p class="status" id="calcNote"></p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 4 -->
+<section class="step" id="read">
+  <h2>4. Feasibility read</h2>
+  <p class="sub">Paste the zoning sections that apply to your property. Claude reads them against everything above and cites only what's in that text.</p>
+  <div id="lawNote"></div>
+  <div class="panel">
+    <label for="code" style="margin-top:0">Zoning code text <span class="hint">Findings will cite only what's here.</span></label>
+    <textarea id="code"></textarea>
+    <div class="btns">
+      <button type="button" class="small" id="loadSample">Load sample code (mock)</button>
+      <button type="button" class="small" id="clearCode">Clear</button>
+    </div>
+    <div class="btns" style="margin-top:16px"><button type="button" class="primary" id="run">Get feasibility read</button></div>
+    <p class="status" id="runStatus" role="status"></p>
+  </div>
+  <div id="feas" class="hidden" style="margin-top:22px">
+    <span class="verdict" id="verdict"></span>
+    <p class="headline" id="headline" style="margin-top:10px"></p>
+    <h3 class="plainh">Use by use</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Use</th><th>Outlook</th><th>What it means for you</th><th>Source</th></tr></thead>
+      <tbody id="useRows"></tbody>
+    </table></div>
+    <h3 class="plainh" style="margin-top:24px">Rules that shape the project</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Rule</th><th>What it means for your property</th><th>Source</th></tr></thead>
+      <tbody id="constraints"></tbody>
+    </table></div>
+    <h3 class="plainh" style="margin-top:24px">Obstacles to expect</h3>
+    <div class="two" id="obstacles"></div>
+    <div class="two" style="margin-top:20px">
+      <div class="prelim">
+        <h4>Financing sketch: preliminary</h4>
+        <p style="margin:0 0 6px;font-size:.88rem">Illustrative only. A housing finance advisor or accountant must confirm eligibility and terms.</p>
+        <ul class="tight" id="financing"></ul>
+      </div>
+      <div>
+        <h4 class="plainh">Questions for your experts</h4>
+        <ul class="tight" id="questions"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 5 -->
+<section class="step" id="partners">
+  <h2>5. Partners you'll need</h2>
+  <p class="sub">Churches rarely do this alone. Each use you picked needs an operator, a tenant or a developer. Start a short list, track who you've talked to, and draft a first email.</p>
+  <div class="two">
+    <div class="panel">
+      <h3 class="plainh">Who to look for</h3>
+      <div id="ptypes"></div>
+    </div>
+    <div>
+      <div class="panel">
+        <h3 class="plainh">Your outreach list</h3>
+        <div id="contacts"></div>
+        <div class="row" style="margin-top:8px">
+          <div><label for="cName">Organization or person</label><input id="cName"></div>
+          <div><label for="cType">For which use</label><select id="cType"></select></div>
+        </div>
+        <div class="btns"><button type="button" class="small" id="addContact">Add to list</button></div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <h3 class="plainh">Draft a first email</h3>
+        <label for="eType" style="margin-top:0">To a</label><select id="eType"></select>
+        <div class="btns"><button type="button" class="primary" id="draftEmail">Draft email</button></div>
+        <p class="status" id="emailStatus" role="status"></p>
+        <div id="emailOut" class="hidden">
+          <div class="email" id="emailText"></div>
+          <div class="btns"><button type="button" class="small" id="copyEmail">Copy email</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:16px">
+    <h3 class="plainh">Churches that have done this</h3>
+    <ul class="examples tight">
+      <li>Solid Rock Christian Center (Colorado Springs) formed its own community development corporation and opened a 77-unit affordable building on a field next to the church in 2024. <a href="https://www.coloradopolitics.com/2026/08/17/second-affordable-housing-project-on-church-land-opens-in-colorado-springs/" target="_blank" rel="noopener">Colorado Politics</a></li>
+      <li>Woodmen Valley Chapel (Colorado Springs) hosts Sunrise at Shiloh Mesa, 50 senior apartments built by Greccio Housing with tax credits. <a href="https://www.coloradopolitics.com/2026/08/17/second-affordable-housing-project-on-church-land-opens-in-colorado-springs/" target="_blank" rel="noopener">Colorado Politics</a></li>
+      <li>Mountain View United Church (Aurora) is partnering on 10 duplexes on two acres it had held for decades. <a href="https://coloradonewsline.com/2025/02/04/gods-backyard-affordable-colorado/" target="_blank" rel="noopener">Colorado Newsline</a></li>
+      <li>Metro Denver churches lease land to Habitat for Humanity for for-sale homes. <a href="https://denver7.com/news/politics/polis-urges-lawmakers-to-make-it-easier-for-colorado-churches-to-build-affordable-housing-on-their-properties" target="_blank" rel="noopener">Denver7</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- STEP 6 -->
+<section class="step" id="present">
+  <h2>6. Presentation for your board and city</h2>
+  <p class="sub">Drafts built from your feasibility read. Edit before sharing, and check every number against your experts' review.</p>
+  <div class="btns" style="margin-top:0"><button type="button" class="primary" id="makePres">Create presentation materials</button></div>
+  <p class="status" id="presStatus" role="status"></p>
+  <div id="pres" class="hidden">
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-tab="slides">Slides</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="one">One-pager</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="talk">Talking points</button>
+    </div>
+    <div data-panel="slides">
+      <div class="deck">
+        <div class="slide" id="slide"></div>
+        <div class="deck-bar">
+          <button type="button" class="small" id="prev">Previous</button>
+          <span id="slideCount" class="hint"></span>
+          <button type="button" class="small" id="next">Next</button>
+        </div>
+        <p class="notes" id="slideNotes"></p>
+      </div>
+    </div>
+    <div data-panel="one" class="hidden"><div class="onepager" id="onepager"></div></div>
+    <div data-panel="talk" class="hidden"><div class="two" id="talk"></div></div>
+    <div class="btns" style="margin-top:18px"><button type="button" id="savePres" class="hidden">Save presentation file</button></div>
+    <p class="status" id="saveStatus" role="status"></p>
+  </div>
+</section>
+
+<footer>
+  Built from the Track 3.1 brief, “Sacred Spaces, Safe Homes.” The demo church, city and sample zoning code are mock data and describe no real jurisdiction. State law notes summarize news coverage and must be confirmed by a land-use attorney. This tool makes no legal, zoning or financial determinations and does not replace architects, land-use attorneys, licensing agencies or city planners.
+</footer>
+</div>
+
+<script src="/shim.js"></script>
+<script>
+/* ---------------- constants ---------------- */
+const SAMPLE_CODE = `PINE RIDGE ZONING ORDINANCE (MOCK DATA FOR DEMONSTRATION)
+
+Sec. 17.20.030 R-3 Medium Density Residential – Permitted uses.
+(a) Single-family, two-family and multifamily dwellings up to 4 units per structure.
+(b) Cottage court developments of 4 to 16 dwellings, each not exceeding 850 sq ft of floor area.
+(c) Religious assembly is a conditional use; residential uses accessory to or co-located with an existing religious assembly use are permitted subject to Sec. 17.62.
+
+Sec. 17.20.040 R-3 Development standards.
+(a) Minimum lot area per dwelling unit: 2,000 sq ft.
+(b) Maximum height: 35 ft.
+(c) Setbacks: front 20 ft; interior side 7 ft; rear 20 ft.
+(d) Maximum lot coverage: 50%.
+
+Sec. 17.44.020 Off-street parking requirements.
+(a) Dwelling units: 1.5 spaces per unit; 1.0 per unit for units under 600 sq ft.
+(b) Places of religious assembly: 1 space per 4 fixed seats in the main assembly area.
+(c) Shared parking among uses with different peak hours may reduce combined requirements by up to 30% with an approved shared-parking analysis.
+(d) Child care centers: 1 space per employee plus 1 drop-off space per 10 children.
+(e) Office: 1 space per 300 sq ft of floor area.
+
+Sec. 17.62.010 Housing on religious-institution land.
+Affordable housing on property owned by a religious institution may receive a density bonus of up to 25% where at least 50% of units are income-restricted at or below 80% of area median income for 30 years.
+
+Sec. 17.62.020 Community uses co-located with religious assembly.
+(a) Child care centers serving up to 60 children are a permitted accessory use, subject to state licensing and a fenced outdoor play area. Centers serving more than 60 children require a conditional use permit.
+(b) Office use by nonprofit organizations may occupy up to 30% of the building's floor area.
+(c) Tutoring, educational, senior and social service programs are permitted accessory uses.
+(d) Accessory retail, such as a bookstore or café, is limited to 1,500 sq ft and hours between 7 a.m. and 9 p.m.
+(e) A change of use within an existing building requires a building permit and fire inspection.
+
+Sec. 17.88.010 Variances.
+The Board of Zoning Appeals may grant variances from development standards upon findings of practical difficulty. Notice to property owners within 300 ft is required.`;
+
+const DEMO_EMAIL = "pastor.demo@gracefellowship.test", DEMO_CODE = "GRACE-DEMO-2026";
+
+const USES = {
+  childcare:{label:"Weekday child care", short:"Child care", color:"--u-childcare", hours:[[1,5,7,18]], spaces:["classrooms","hall"], serve:3, income:3, effort:"moderate",
+    what:"Lease classrooms to a licensed operator, or run your own center.",
+    approvals:"State child care license, fire and building inspection, background checks, an outdoor play area.",
+    partner:{name:"Licensed child care operator", look:"Local child care centers looking to expand, Head Start or Early Head Start grantees, the YMCA, your state's child care resource and referral agency.", ask:"Would you operate a center in our classrooms on weekdays, and on what lease terms?"}},
+  office:{label:"Office space for mission-aligned nonprofits", short:"Nonprofit offices", color:"--u-office", hours:[[1,5,8,17]], spaces:["offices","classrooms"], serve:2, income:3, effort:"light",
+    what:"Rent offices or classrooms to Christian or community nonprofits Monday to Friday.",
+    approvals:"Often allowed as an accessory use; a lease, insurance, and possibly a change-of-use permit.",
+    partner:{name:"Nonprofit tenants", look:"Ministries, counseling centers, refugee and food programs, and other small nonprofits that need affordable office space.", ask:"Do you need weekday office space, and what could you afford?"}},
+  tutoring:{label:"After-school tutoring", short:"Tutoring", color:"--u-tutoring", hours:[[1,5,15,18]], spaces:["classrooms","hall"], serve:3, income:1, effort:"light",
+    what:"Host a tutoring or homework program for neighborhood kids after school.",
+    approvals:"Usually light; child safety policies, background checks, and liability coverage.",
+    partner:{name:"Tutoring or youth program", look:"Nearby schools, literacy nonprofits, Boys & Girls Clubs, college volunteer programs.", ask:"Could we host your after-school program, and what would you need from the space?"}},
+  senior:{label:"Senior program in the hall or gym", short:"Senior program", color:"--u-senior", hours:[[1,5,9,14]], spaces:["hall","kitchen"], serve:3, income:1, effort:"light",
+    what:"Daytime meals, exercise and fellowship for older neighbors.",
+    approvals:"Food safety permit if serving meals; accessibility review.",
+    partner:{name:"Senior services provider", look:"Your Area Agency on Aging, senior meal programs, home health agencies.", ask:"Would a weekday senior program in our hall help the people you serve?"}},
+  retail:{label:"Bookstore or café", short:"Bookstore/café", color:"--u-retail", hours:[[1,6,10,16]], spaces:["lobby","kitchen"], serve:1, income:2, effort:"moderate",
+    what:"A small shop or café that draws neighbors in and earns modest income.",
+    approvals:"Business license, sales tax registration, food permits for a café; check accessory retail limits.",
+    partner:{name:"Retail or café operator", look:"Local Christian bookstores, coffee roasters, job-training cafés.", ask:"Would you run a small shop or café in our lobby?"}},
+  community:{label:"Evening community rentals", short:"Community rentals", color:"--u-community", hours:[[1,5,18,21]], spaces:["hall","classrooms"], serve:2, income:2, effort:"light",
+    what:"Rent rooms for recovery groups, classes and community meetings in the evenings.",
+    approvals:"A simple facility-use agreement and insurance certificate.",
+    partner:{name:"Community groups", look:"Recovery groups, ESL classes, neighborhood associations.", ask:"Do you need an evening meeting room?"}},
+  housing:{label:"Affordable housing on the lot", short:"Housing", color:"--u-childcare", hours:[], spaces:["parking","field"], serve:3, income:2, effort:"major",
+    what:"Lease part of your land to a housing developer for affordable homes.",
+    approvals:"Zoning review, often a variance or density bonus, site plan, financing, and neighbor notice.",
+    partner:{name:"Nonprofit housing developer", look:"Habitat for Humanity, your local housing authority, community development corporations, faith-based housing nonprofits.", ask:"Would you evaluate our land for an affordable housing partnership, such as a long-term ground lease?"}}
+};
+const ROOM_USES = ["childcare","office","tutoring","senior","retail","community"];
+const WORSHIP = [[0,0,8,13],[3,3,18,20]]; // [dayStart,dayEnd,hourStart,hourEnd], 0=Sun
+const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const ORDER = [1,2,3,4,5,6,0];
+const H0 = 6, H1 = 22;
+const TYPES = {
+  micro:{label:"micro-cottages", fpW:16, fpD:25, sqft:400},
+  cottage:{label:"cottages", fpW:24, fpD:30, sqft:700},
+  town:{label:"townhomes", fpW:20, fpD:36, sqft:1400}
+};
+const STALL = 330;
+
+const BLANK = {
+  church:"", pastor:"", address:"", city:"", state:"",
+  spaces:[], goal:"both", appetite:"light",
+  rooms:[{name:"Classroom 1", sqft:600, free:true, use:""}],
+  rent:16, perChild:35, seats:250,
+  land:{w:180,d:240,fp:9000,keep:40,type:"micro",zone:"",sf:20,ss:7,sr:20,dens:2000,pk:1.5},
+  code:"", contacts:[]
+};
+/* Shown only if the demo record can't be loaded from the page's database. */
+const DEMO_FALLBACK = {
+  church:"Grace Fellowship Church", pastor:"Pastor Dana Reyes", address:"1420 Elm Street", city:"Pine Ridge (demo)", state:"CO",
+  spaces:["classrooms","hall","offices","kitchen","lobby","parking"], goal:"both", appetite:"moderate",
+  rooms:[
+    {name:"Classroom A", sqft:650, free:true, use:"childcare"},
+    {name:"Classroom B", sqft:650, free:true, use:"childcare"},
+    {name:"Classroom C", sqft:520, free:true, use:"tutoring"},
+    {name:"Office suite", sqft:900, free:true, use:"office"},
+    {name:"Fellowship hall", sqft:2400, free:true, use:"senior"},
+    {name:"Lobby", sqft:600, free:true, use:""}
+  ],
+  rent:16, perChild:35, seats:250,
+  land:{w:180,d:240,fp:9000,keep:40,type:"micro",zone:"R-3 Medium Density Residential",sf:20,ss:7,sr:20,dens:2000,pk:1.5},
+  code:SAMPLE_CODE,
+  contacts:[{name:"Little Sprouts Learning Center", use:"childcare", status:"Not contacted"},{name:"Pine Ridge Habitat for Humanity", use:"housing", status:"Not contacted"}]
+};
+
+/* ---------------- helpers ---------------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const clone = o => JSON.parse(JSON.stringify(o));
+const nz = v => Math.max(0, parseFloat(v) || 0);
+const money = n => "$" + Math.round(n).toLocaleString();
+
+/* ---------------- runtime capabilities ---------------- */
+const use = n => (window.claude && window.claude.use) ? window.claude.use(n).catch(() => null) : Promise.resolve(null);
+const dbP = use("db"), userP = use("user"), sampleP = use("sample"), dlP = use("downloads");
+let uid = null, db = null;
+const ready = (async () => {
+  db = await dbP; const u = await userP;
+  try { uid = u ? await u.id() : null; } catch(e) { uid = null; }
+  if (!db || !uid) $("gSaveNote").textContent = "Saving isn't available in this view. You can still try every step; changes last until you close the page.";
+})();
+
+/* ---------------- state ---------------- */
+let S = clone(BLANK), mode = null, feasData = null, presData = null;
+
+function wsDoc(){ return db && uid ? db.doc("data/users/" + uid + "/" + (mode === "demo" ? "demo-workspace" : "workspace")) : null; }
+
+async function signIn(m){
+  mode = m;
+  $("gStatus").className = "status"; $("gStatus").textContent = "Loading workspace…";
+  await ready;
+  let loaded = null;
+  const ref = wsDoc();
+  if (ref) { try { const s = await ref.get(); if (s.exists) loaded = s.data().state; } catch(e) {} }
+  if (!loaded && m === "demo") {
+    if (db) { try { const s = await db.doc("demo/grace-fellowship").get(); if (s.exists) loaded = s.data().state; } catch(e) {} }
+    if (!loaded) loaded = DEMO_FALLBACK;
+  }
+  S = Object.assign(clone(BLANK), clone(loaded || BLANK));
+  S.land = Object.assign(clone(BLANK.land), S.land || {});
+  feasData = S.feas || null; presData = S.pres || null;
+  try { sessionStorage.setItem("ssh-mode", m); } catch(e) {}
+  $("gate").classList.add("hidden");
+  $("gStatus").textContent = "";
+  fillForms(); renderAll();
+  if (feasData) showFeas(feasData);
+  if (presData) showPres(presData);
+  $("saveState").textContent = ref ? "Saved" : "Not saved";
+  $("saveBtn").classList.toggle("hidden", !ref);
+}
+
+$("gDemo").onclick = () => {
+  const e = $("gEmail").value.trim().toLowerCase(), c = $("gCode").value.trim().toUpperCase();
+  if (e !== DEMO_EMAIL || c !== DEMO_CODE) {
+    $("gStatus").className = "status err";
+    $("gStatus").textContent = "That email and access code don't match the demo account. Use the ones shown above.";
+    return;
+  }
+  signIn("demo");
+};
+$("gBlank").onclick = () => signIn("own");
+$("signOut").onclick = async () => { await saveNow(); try { sessionStorage.removeItem("ssh-mode"); } catch(e) {} $("gate").classList.remove("hidden"); };
+try { const m = sessionStorage.getItem("ssh-mode"); if (m) signIn(m); } catch(e) {}
+
+/* ---------------- saving ---------------- */
+let saveTimer = null, saving = false, dirty = false;
+function markDirty(){
+  dirty = true;
+  if (!wsDoc()) return;
+  $("saveState").textContent = "Unsaved";
+  clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 2500);
+}
+async function saveNow(){
+  const ref = wsDoc(); if (!ref || !dirty || saving) return;
+  saving = true; clearTimeout(saveTimer);
+  $("saveState").textContent = "Saving…";
+  try {
+    S.feas = feasData; S.pres = presData;
+    await ref.set({state: S, updatedAt: new Date().toISOString()});
+    dirty = false; $("saveState").textContent = "Saved";
+  } catch(e) {
+    $("saveState").textContent = e && e.code === "invalid_argument" ? "Read-only" : "Not saved";
+  } finally { saving = false; }
+}
+$("saveBtn").onclick = () => { dirty = true; saveNow(); };
+
+/* ---------------- forms <-> state ---------------- */
+const PF = {church:"church", pastor:"pastor", addr:"address", city:"city", st:"state"};
+const LF = ["w","d","fp","keep","type","zone","sf","ss","sr","dens","pk"];
+const LKEY = {w:"w",d:"d",fp:"fp",keep:"keep",type:"type",zone:"zone",sf:"sf",ss:"ss",sr:"sr",dens:"dens",pk:"pk"};
+
+function fillForms(){
+  for (const [id,k] of Object.entries(PF)) $(id).value = S[k] || "";
+  document.querySelectorAll("#spaces input").forEach(c => c.checked = S.spaces.includes(c.value));
+  document.querySelectorAll("#goal input").forEach(r => r.checked = r.value === S.goal);
+  $("appetite").value = S.appetite;
+  $("rent").value = S.rent; $("perChild").value = S.perChild; $("seats").value = S.seats;
+  LF.forEach(id => $(id).value = S.land[LKEY[id]]);
+  $("code").value = S.code || "";
+}
+
+document.querySelector("#fProfile").addEventListener("input", e => {
+  for (const [id,k] of Object.entries(PF)) S[k] = $(id).value;
+  S.spaces = [...document.querySelectorAll("#spaces input:checked")].map(c => c.value);
+  const g = document.querySelector("#goal input:checked"); S.goal = g ? g.value : "both";
+  S.appetite = $("appetite").value;
+  markDirty(); renderAll();
+});
+["rent","perChild","seats"].forEach(id => $(id).addEventListener("input", () => { S[id] = nz($(id).value); markDirty(); renderRooms(false); renderWeek(); }));
+LF.forEach(id => $(id).addEventListener("input", () => {
+  S.land[LKEY[id]] = (id === "type" || id === "zone") ? $(id).value : nz($(id).value);
+  markDirty(); renderLand();
+}));
+$("code").addEventListener("input", () => { S.code = $("code").value; markDirty(); });
+$("loadSample").onclick = () => { $("code").value = SAMPLE_CODE; S.code = SAMPLE_CODE; markDirty(); };
+$("clearCode").onclick = () => { $("code").value = ""; S.code = ""; markDirty(); $("code").focus(); };
+
+/* ---------------- render: all ---------------- */
+function renderAll(){
+  const n = S.church || "your church";
+  $("heroTitle").textContent = S.church ? `What could ${S.church} become?` : "What could your church space become?";
+  $("who").innerHTML = `Signed in as <b>${esc(S.pastor || (mode==="demo" ? "Demo pastor" : "you"))}</b>${S.church ? ", " + esc(S.church) : ""}` + (mode === "demo" ? `<span class="demo-pill">Demo account</span>` : "");
+  renderWeek(); renderMatch(); renderRooms(true); renderLand(); renderLaw(); renderPartners();
+}
+
+/* ---------------- week strip ---------------- */
+function grid(){
+  const g = {}; // key d-h -> [uses]
+  const put = (u, spans) => spans.forEach(([a,b,h1,h2]) => { for (let d=a; d<=b; d++) for (let h=h1; h<h2; h++) if (h>=H0 && h<H1) { const k = d+"-"+h; (g[k] = g[k] || []).includes(u) || g[k].push(u); } });
+  put("worship", WORSHIP);
+  const assigned = [...new Set(S.rooms.filter(r => r.free && r.use).map(r => r.use))];
+  assigned.forEach(u => put(u, USES[u].hours));
+  return {g, assigned};
+}
+function renderWeek(){
+  const {g, assigned} = grid();
+  const cw = 34, ch = 30, lx = 44, ty = 20, W = lx + (H1-H0)*cw + 4, H = ty + 7*ch + 4;
+  let s = "";
+  for (let h=H0; h<H1; h+=2) s += `<text x="${lx + (h-H0)*cw + 2}" y="13" font-size="11" font-family="Public Sans,sans-serif" fill="var(--ink-2)">${h<=12 ? h : h-12}${h<12?"a":"p"}</text>`;
+  ORDER.forEach((d, row) => {
+    const y = ty + row*ch;
+    s += `<text x="0" y="${y + ch/2 + 4}" font-size="12" font-weight="600" font-family="Public Sans,sans-serif" fill="var(--ink)">${DAYS[d]}</text>`;
+    for (let h=H0; h<H1; h++){
+      const us = g[d+"-"+h] || [], x = lx + (h-H0)*cw + 1;
+      const name = u => u === "worship" ? "Worship and church programs" : USES[u].short;
+      const tip = `<title>${DAYS[d]} ${h}:00 – ${us.length ? us.map(name).join(", ") : "Empty"}</title>`;
+      if (!us.length) s += `<rect class="cell" x="${x}" y="${y+1}" width="${cw-2}" height="${ch-2}" rx="2" fill="var(--u-empty)">${tip}</rect>`;
+      else { const sh = (ch-2)/us.length; s += `<g>${tip}` + us.map((u,j) => `<rect class="cell" x="${x}" y="${y+1+j*sh}" width="${cw-2}" height="${sh}" fill="${u==="worship"?"var(--u-worship)":`var(${USES[u].color})`}"/>`).join("") + `</g>`; }
+    }
+  });
+  const svg = $("weekSvg"); svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = s;
+  const total = 7*(H1-H0), used = Object.keys(g).length;
+  const base = WORSHIP.reduce((a,[x,y,h1,h2]) => a + (y-x+1)*(h2-h1), 0);
+  $("useBig").textContent = Math.round(used/total*100) + "% of open hours in use";
+  $("useNote").textContent = assigned.length
+    ? `Up from ${Math.round(base/total*100)}% with worship alone. ${used} of ${total} hours between 6 a.m. and 10 p.m.`
+    : `${used} of ${total} hours between 6 a.m. and 10 p.m. Assign weekday uses in step 2 to see this fill in.`;
+  $("weekLegend").innerHTML = `<span><i class="sw" style="background:var(--u-worship)"></i>Worship and church programs</span>` +
+    assigned.map(u => `<span><i class="sw" style="background:var(${USES[u].color})"></i>${USES[u].short}</span>`).join("") +
+    `<span><i class="sw" style="background:var(--u-empty);border:1px solid var(--line)"></i>Empty</span>`;
+}
+
+/* ---------------- matcher ---------------- */
+function renderMatch(){
+  const effRank = {light:1, moderate:2, major:3}, cap = effRank[S.appetite] || 1;
+  const scored = Object.entries(USES).map(([k,u]) => {
+    const hasSpace = u.spaces.some(sp => S.spaces.includes(sp));
+    const goalScore = S.goal === "serve" ? u.serve : S.goal === "income" ? u.income : (u.serve + u.income)/2;
+    const effOk = effRank[u.effort] <= cap;
+    let score = (hasSpace ? 3 : 0) + goalScore + (effOk ? 1.5 : -1);
+    return {k, u, score, hasSpace, effOk};
+  }).sort((a,b) => b.score - a.score);
+  $("match").innerHTML = scored.slice(0,4).map(({k,u,score,hasSpace,effOk}) => {
+    const lvl = !hasSpace ? "lo" : score >= 6.5 ? "hi" : "mid";
+    const lbl = !hasSpace ? "Needs space you didn't select" : lvl === "hi" ? "Strong fit" : "Worth exploring";
+    const eff = {light:"Lighter lift", moderate:"Moderate effort", major:"Major project"}[u.effort];
+    return `<div class="opt" style="--c:var(${u.color})">
+      <span class="fit ${lvl}">${lbl}</span>
+      <h3>${esc(u.label)}</h3>
+      <p>${esc(u.what)}</p>
+      <p class="meta"><b>${eff}${effOk ? "" : " (bigger than you said you'd take on)"}.</b> Usually needs: ${esc(u.approvals)}</p>
+      <p class="meta">Partner: ${esc(u.partner.name)}</p>
+    </div>`;
+  }).join("");
+}
+
+/* ---------------- rooms ---------------- */
+function renderRooms(rebuild){
+  if (rebuild) {
+    $("rooms").innerHTML = S.rooms.map((r,i) => `<tr>
+      <td><input data-i="${i}" data-k="name" value="${esc(r.name)}" aria-label="Room name"></td>
+      <td class="n"><input data-i="${i}" data-k="sqft" type="number" min="0" value="${r.sqft}" aria-label="Square feet"></td>
+      <td class="c"><input data-i="${i}" data-k="free" type="checkbox" ${r.free?"checked":""} aria-label="Free on weekdays" style="width:auto"></td>
+      <td><select data-i="${i}" data-k="use" aria-label="Use"><option value="">Not assigned</option>${ROOM_USES.map(u => `<option value="${u}" ${r.use===u?"selected":""}>${USES[u].short}</option>`).join("")}</select></td>
+      <td><button type="button" class="small" data-del="${i}" aria-label="Remove ${esc(r.name)}">Remove</button></td>
+    </tr>`).join("");
+  }
+  const free = S.rooms.filter(r => r.free), freeSq = free.reduce((a,r) => a + nz(r.sqft), 0);
+  const asg = free.filter(r => r.use), asgSq = asg.reduce((a,r) => a + nz(r.sqft), 0);
+  const ccSq = asg.filter(r => r.use === "childcare").reduce((a,r) => a + nz(r.sqft), 0);
+  const kids = S.perChild ? Math.floor(ccSq / S.perChild) : 0;
+  const leased = asg.filter(r => ["childcare","office","retail"].includes(r.use)).reduce((a,r) => a + nz(r.sqft), 0);
+  const income = leased * nz(S.rent);
+  const officeSq = asg.filter(r => r.use === "office").reduce((a,r) => a + nz(r.sqft), 0);
+  const total = S.rooms.reduce((a,r) => a + nz(r.sqft), 0);
+  $("roomMath").innerHTML = `
+    <div><b>${freeSq.toLocaleString()}</b><span>sq ft free on weekdays</span></div>
+    <div><b>${asgSq.toLocaleString()}</b><span>sq ft with a use assigned</span></div>
+    <div class="${kids>60?"bind":""}"><b>${kids}</b><span>children at ${S.perChild} sq ft each${kids>60?" (above 60 may need a conditional use permit in the sample code)":""}</span></div>
+    <div><b>${officeSq ? Math.round(officeSq/Math.max(total,1)*100) + "%" : "0%"}</b><span>of listed floor area as offices</span></div>
+    <div><b>${money(income)}</b><span>a year if leased rooms rent at $${S.rent}/sq ft (illustrative)</span></div>`;
+}
+$("rooms").addEventListener("input", e => {
+  const el = e.target, i = +el.dataset.i, k = el.dataset.k; if (isNaN(i) || !k) return;
+  S.rooms[i][k] = k === "free" ? el.checked : k === "sqft" ? nz(el.value) : el.value;
+  markDirty(); renderRooms(false); renderWeek(); renderPartners();
+});
+$("rooms").addEventListener("click", e => {
+  const d = e.target.dataset.del; if (d === undefined) return;
+  S.rooms.splice(+d, 1); markDirty(); renderRooms(true); renderWeek(); renderPartners();
+});
+$("addRoom").onclick = () => { S.rooms.push({name:"Room " + (S.rooms.length+1), sqft:500, free:true, use:""}); markDirty(); renderRooms(true); };
+
+/* ---------------- land ---------------- */
+function calc(L){
+  const t = TYPES[L.type] || TYPES.micro, lot = L.w*L.d;
+  const envW = Math.max(0, L.w - 2*L.ss), envD = Math.max(0, L.d - L.sf - L.sr), env = envW*envD;
+  const keepArea = L.keep*STALL, housingLand = Math.max(0, env - L.fp - keepArea);
+  const byDensity = Math.floor(lot / (L.dens || 2000));
+  const perUnitLand = t.fpW*t.fpD + L.pk*STALL;
+  const byLand = Math.floor(housingLand*0.7 / perUnitLand);
+  const units = Math.max(0, Math.min(byDensity, byLand));
+  const binding = byDensity <= byLand ? "density" : "land and parking";
+  return {t, lot, envW, envD, env, keepArea, housingLand, byDensity, byLand, units, binding, unitParking: Math.ceil(units*L.pk)};
+}
+function drawPlat(L, c){
+  const pad = 34, W = L.w, D = L.d, svg = $("svg");
+  svg.setAttribute("viewBox", `0 0 ${W + pad*2} ${D + pad*2 + 10}`);
+  const ex = pad + L.ss, ey = pad + L.sr, ew = c.envW, ed = c.envD;
+  let s = `<rect x="${pad}" y="${pad}" width="${W}" height="${D}" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>`;
+  s += `<rect x="${ex}" y="${ey}" width="${ew}" height="${ed}" fill="none" stroke="var(--ochre)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  const cw = Math.min(ew*0.55, Math.sqrt(L.fp*1.3)) || 0, cd = cw ? Math.min(ed, L.fp/cw) : 0, cy = ey + ed - cd;
+  if (cw>0 && cd>0) { s += `<rect x="${ex}" y="${cy}" width="${cw}" height="${cd}" fill="var(--church)"/><text x="${ex+cw/2}" y="${cy+cd/2+4}" text-anchor="middle" font-size="11" font-family="Public Sans,sans-serif" fill="var(--sheet)">Church</text>`; }
+  const pw = ew - cw; let remaining = c.keepArea;
+  const beside = Math.min(remaining, Math.max(0, pw*cd));
+  if (beside>0 && pw>0) { const ph = beside/pw; s += `<rect x="${ex+cw}" y="${ey+ed-ph}" width="${pw}" height="${ph}" fill="var(--park)" stroke="var(--line)"/>`; }
+  remaining -= beside;
+  const topOfFront = ey + ed - cd; let stripH = 0;
+  if (remaining>0 && ew>0) { stripH = Math.min(topOfFront-ey, remaining/ew); s += `<rect x="${ex}" y="${topOfFront-stripH}" width="${ew}" height="${stripH}" fill="var(--park)" stroke="var(--line)"/>`; }
+  if (c.keepArea>0) s += `<text x="${ex+cw+Math.max(pw,0)/2}" y="${ey+ed-6}" text-anchor="middle" font-size="10" font-family="Public Sans,sans-serif" fill="var(--ink-2)">${L.keep} spaces kept</text>`;
+  const hzTop = ey, hzBot = topOfFront - stripH - 8, t = c.t, gap = 8;
+  const cols = Math.max(0, Math.floor((ew + gap) / (t.fpW + gap))), rows = Math.max(0, Math.floor((hzBot - hzTop + gap) / (t.fpD + gap + 6)));
+  const fit = cols*rows, draw = Math.min(c.units, fit);
+  for (let k=0; k<draw; k++){ const r = Math.floor(k/cols), col = k%cols; s += `<rect x="${ex + col*(t.fpW+gap)}" y="${hzTop + r*(t.fpD+gap+6)}" width="${t.fpW}" height="${t.fpD}" rx="1.5" fill="var(--unit)"/>`; }
+  s += `<line x1="${pad-10}" y1="${pad+D+14}" x2="${pad+W+10}" y2="${pad+D+14}" stroke="var(--ink-2)" stroke-width="1"/>`;
+  s += `<text x="${pad+W/2}" y="${pad+D+28}" text-anchor="middle" font-size="11" font-family="Public Sans,sans-serif" fill="var(--ink-2)">${esc(S.address||"Street")} (frontage ${L.w} ft)</text>`;
+  s += `<text x="${pad-10}" y="${pad+D/2}" text-anchor="middle" font-size="11" font-family="Public Sans,sans-serif" fill="var(--ink-2)" transform="rotate(-90 ${pad-12} ${pad+D/2})">${L.d} ft deep</text>`;
+  svg.innerHTML = s; return {fit};
+}
+function renderLand(){
+  const L = S.land, c = calc(L), p = drawPlat(L, c);
+  $("platTitle").textContent = (S.church || "Site") + " sketch";
+  $("math").innerHTML = `
+    <div><b>${c.lot.toLocaleString()}</b><span>sq ft lot (${(c.lot/43560).toFixed(2)} ac)</span></div>
+    <div><b>${Math.round(c.housingLand).toLocaleString()}</b><span>sq ft free inside setbacks after church and kept parking</span></div>
+    <div class="${c.binding==="density"?"bind":""}"><b>${c.byDensity}</b><span>units allowed by density (lot ÷ ${(L.dens||2000).toLocaleString()})</span></div>
+    <div class="${c.binding!=="density"?"bind":""}"><b>${c.byLand}</b><span>${c.t.label} that fit with ${L.pk} parking per unit</span></div>
+    <div><b>~${c.units}</b><span>rough estimate; limited by ${c.binding}</span></div>`;
+  let note = "Shaded box is the tighter limit. Assumes 330 sq ft per parking space and 30% of open land for paths and yards.";
+  if (p.fit < c.units) note += ` The sketch only fits ${p.fit} at this layout, so the real number may be lower.`;
+  $("calcNote").textContent = note;
+  return c;
+}
+
+/* ---------------- state law note ---------------- */
+function stateContext(){
+  const st = (S.state||"").trim().toLowerCase();
+  if (st === "co" || st === "colorado") return {
+    html:`<p><b>Colorado: HOME Act (HB26-1001).</b> Signed March 25, 2026, it requires local governments to let qualifying organizations build housing on their land whether or not it's zoned residential, starting in 2028. Qualifying groups are schools, colleges, transit agencies, housing authorities and nonprofits with a proven record of building housing. Churches themselves are not on the list; a 2025 bill that named religious institutions did not pass. A church would likely need to partner with, or lease land to, a qualifying housing nonprofit.</p><p class="hint">Summarized from news coverage (<a href="https://coloradosun.com/2026/03/26/colorado-home-act-housing-bill-signed/" target="_blank" rel="noopener">Colorado Sun</a>, <a href="https://www.cpr.org/2026/03/26/polis-bill-schools-bypass-zoning-rules/" target="_blank" rel="noopener">CPR</a>). Confirm how it applies to your parcel with a land-use attorney.</p>`,
+    text:"Colorado HB26-1001 (HOME Act), signed March 25, 2026, effective 2028: local governments must allow qualifying organizations (schools, colleges, transit agencies, housing authorities, and nonprofits with a proven record of building housing) to build housing on their land regardless of residential zoning, subject to local standards. Religious institutions are NOT a qualifying organization; a 2025 bill that included them failed. Implication: a church may need a qualifying nonprofit developer partner. Source: news coverage, not code text; treat as unverified."};
+  if (st === "ca" || st === "california") return {
+    html:`<p><b>California: SB 4 (2023).</b> Lets faith-based organizations build 100% affordable housing on land they own with streamlined approval, overriding some local zoning limits.</p><p class="hint">Summary for orientation (<a href="https://en.wikipedia.org/wiki/Affordable_Housing_on_Faith_and_Higher_Education_Lands_Act" target="_blank" rel="noopener">overview</a>). Confirm eligibility with a land-use attorney.</p>`,
+    text:"California SB 4 (2023): faith-based organizations may build 100% affordable housing on land they own with streamlined approval, overriding some local zoning limits. Source: general summary, not code text; treat as unverified."};
+  return null;
+}
+function renderLaw(){ const c = stateContext(); $("lawNote").innerHTML = c ? `<div class="law">${c.html}</div>` : ""; }
+
+/* ---------------- partners ---------------- */
+function chosenUses(){
+  const u = [...new Set(S.rooms.filter(r => r.free && r.use).map(r => r.use))];
+  if (S.spaces.includes("parking") || S.spaces.includes("field")) u.push("housing");
+  return u;
+}
+function renderPartners(){
+  const ch = chosenUses();
+  const co = stateContext() && /^(co|colorado)$/i.test((S.state||"").trim());
+  $("ptypes").innerHTML = ch.length ? ch.map(k => {
+    const p = USES[k].partner;
+    const extra = k === "housing" && co ? `<p class="hint">In Colorado, look for a nonprofit that has built housing before. Under the HOME Act, that partner may qualify for zoning relief your church wouldn't get on its own.</p>` : "";
+    return `<div class="ptype"><h4>${esc(p.name)} <span class="hint" style="font:500 .85rem var(--sans)">for ${esc(USES[k].short.toLowerCase())}</span></h4><p>${esc(p.look)}</p><p class="hint">First question to ask: ${esc(p.ask)}</p>${extra}</div>`;
+  }).join("") : `<p class="hint">Assign a use to a room in step 2, or select a parking lot or field in step 1, to see who to look for.</p>`;
+  const opts = (ch.length ? ch : Object.keys(USES)).map(k => `<option value="${k}">${esc(USES[k].partner.name)}</option>`).join("");
+  const keepC = $("cType").value, keepE = $("eType").value;
+  $("cType").innerHTML = opts; $("eType").innerHTML = opts;
+  if ([...$("cType").options].some(o => o.value === keepC)) $("cType").value = keepC;
+  if ([...$("eType").options].some(o => o.value === keepE)) $("eType").value = keepE;
+  renderContacts();
+}
+const STATUSES = ["Not contacted","Emailed","Met","Interested","Not a fit"];
+function renderContacts(){
+  $("contacts").innerHTML = S.contacts.length ? S.contacts.map((c,i) => `<div class="contact">
+    <span><b>${esc(c.name)}</b></span>
+    <span class="hint">${esc(USES[c.use] ? USES[c.use].short : c.use)}</span>
+    <select data-ci="${i}" aria-label="Status for ${esc(c.name)}">${STATUSES.map(s => `<option ${s===c.status?"selected":""}>${s}</option>`).join("")}</select>
+    <button type="button" class="small" data-cdel="${i}" aria-label="Remove ${esc(c.name)}">Remove</button>
+  </div>`).join("") : `<p class="hint" style="margin:0">No one yet. Add the first organization you'd call.</p>`;
+}
+$("contacts").addEventListener("change", e => { const i = e.target.dataset.ci; if (i===undefined) return; S.contacts[+i].status = e.target.value; markDirty(); });
+$("contacts").addEventListener("click", e => { const i = e.target.dataset.cdel; if (i===undefined) return; S.contacts.splice(+i,1); markDirty(); renderContacts(); });
+$("addContact").onclick = () => {
+  const n = $("cName").value.trim(); if (!n) { $("cName").focus(); return; }
+  S.contacts.push({name:n, use:$("cType").value, status:"Not contacted"}); $("cName").value = ""; markDirty(); renderContacts();
+};
+
+/* ---------------- Claude calls ---------------- */
+function errCopy(e){
+  const c = e && e.code;
+  if (c === "not_granted") return "Claude access was declined for this page. Everything except the written drafts still works.";
+  if (c === "rate_limited") return "Too many requests at once. Wait a minute, then try again.";
+  return "That didn't finish" + (e && e.message ? ": " + e.message : ".") + " Try again.";
+}
+sampleP.then(s => {
+  if (!s) {
+    ["run","makePres","draftEmail"].forEach(id => $(id).disabled = true);
+    $("runStatus").textContent = "The written read needs Claude, which isn't available in this view. Open this page in Claude to use it. The charts and calculators work anywhere.";
+  }
+});
+
+function siteSummary(){
+  const c = calc(S.land), rooms = S.rooms.map(r => `- ${r.name}: ${r.sqft} sq ft, ${r.free ? "free weekdays" : "in use weekdays"}, proposed use: ${r.use ? USES[r.use].label : "none"}`).join("\n");
+  const ccSq = S.rooms.filter(r => r.free && r.use==="childcare").reduce((a,r)=>a+nz(r.sqft),0);
+  const sc = stateContext();
+  return {c, text:`CHURCH: ${S.church || "(unnamed)"} at ${S.address}, ${S.city}, ${S.state}
+Spaces available: ${S.spaces.join(", ") || "none listed"}. Goal: ${S.goal}. Board appetite: ${S.appetite}.
+Sanctuary fixed seats: ${S.seats}.
+
+ROOMS (weekday building uses)
+${rooms}
+Child care: ${ccSq} sq ft at ${S.perChild} sq ft/child (user assumption) = about ${S.perChild ? Math.floor(ccSq/S.perChild) : 0} children.
+Lease assumption: $${S.rent}/sq ft/yr (user assumption, not market data).
+
+LAND (only if parking lot or field selected: ${S.spaces.includes("parking")||S.spaces.includes("field") ? "yes" : "no"})
+Zoning district entered: ${S.land.zone}. Lot ${S.land.w} x ${S.land.d} ft = ${c.lot} sq ft; church footprint ${S.land.fp} sq ft; parking kept ${S.land.keep}.
+Housing type: ${c.t.label}. Setbacks entered front ${S.land.sf}, side ${S.land.ss}, rear ${S.land.sr}. Lot area per unit ${S.land.dens}; parking per unit ${S.land.pk}.
+Tool's rough math: density allows ${c.byDensity}; land and parking fit about ${c.byLand}; estimate ~${c.units}, limited by ${c.binding}.
+
+STATE CONTEXT (not code text; anything drawn from it must be marked unverified)
+${sc ? sc.text : "None provided."}`};
+}
+
+$("run").onclick = async () => {
+  const sample = await sampleP; if (!sample) return;
+  if (!S.code.trim()) { $("runStatus").className = "status err"; $("runStatus").textContent = "Paste your zoning text first, or load the sample code to try it."; $("code").focus(); return; }
+  $("run").disabled = true; $("runStatus").className = "status";
+  $("runStatus").textContent = "Reading your zoning text against your rooms and land. This usually takes under a minute.";
+  const {text} = siteSummary();
+  const prompt = `You are a careful feasibility assistant helping a pastor or church board with no real estate experience explore weekday uses of their building and, if listed, housing on their land. Produce an INTRODUCTORY read only. Never make final legal, zoning, licensing or financial determinations.
+
+STRICT RULES
+- Cite a provision ONLY if its section number and substance appear in the ZONING CODE TEXT below. Copy the section number exactly.
+- If something is not in that text, set citation to null and confidence to "unverified", and say who should confirm it. Never invent section numbers, rules, program terms or dollar figures.
+- State context is not code text: anything drawn from it is "unverified".
+- Plain language. Explain any term a non-expert wouldn't know.
+- Counterpoints are mission-driven and respectful (love of neighbor, hospitality, stewardship) and take neighbors' real concerns seriously.
+- Financing and income: name common sources (lease income, LIHTC, faith-based housing funds, local housing trust funds, CDFIs, child care subsidies) only as possibilities, no amounts beyond the user's own assumptions.
+- Only include uses that appear in the inputs (proposed room uses, plus housing if land was selected).
+
+${text}
+
+ZONING CODE TEXT (the only citable source)
+"""
+${S.code}
+"""
+
+Return ONLY a JSON object, no markdown fences:
+{
+ "verdict": "promising" | "possible with relief" | "difficult",
+ "headline": "one plain sentence summarizing the best near-term opportunity and the main condition",
+ "uses": [ {"use":"short name", "outlook":"promising"|"possible with relief"|"difficult", "finding":"1-2 sentences", "citation":"Sec. x or null", "confidence":"cited"|"unverified"} ],
+ "constraints": [ {"rule":"short name", "finding":"1-2 sentences", "citation":"Sec. x or null", "confidence":"cited"|"unverified"} ],   // 3-6 items
+ "obstacles": [ {"obstacle":"...", "why":"1 sentence", "counterpoint":"1-2 sentences", "expert":"who to ask"} ],   // 3-5 items
+ "financing": [ {"source":"...", "fit":"1 sentence, hedged"} ],   // 2-4 items
+ "questions": [ "question for architect / attorney / planner / licensing agency" ]   // 4-6 items
+}`;
+  try {
+    feasData = await sample.json(prompt, {modelTier:"default"});
+    showFeas(feasData); markDirty();
+    $("runStatus").textContent = "Done. Your read is below.";
+    $("feas").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  } catch(e) { $("runStatus").className = "status err"; $("runStatus").textContent = errCopy(e); }
+  finally { $("run").disabled = false; }
+};
+
+const vClass = v => { v = (v||"").toLowerCase(); return v.startsWith("prom") ? "v-promising" : v.startsWith("diff") ? "v-difficult" : "v-relief"; };
+const cap1 = v => v ? v.charAt(0).toUpperCase() + v.slice(1) : "Needs review";
+const citeCell = r => { const ok = r.confidence === "cited" && r.citation; return `<td class="cite ${ok?"ok":"no"}">${ok ? esc(r.citation) : "Unverified: confirm with your planner"}</td>`; };
+function showFeas(d){
+  $("feas").classList.remove("hidden");
+  $("verdict").className = "verdict " + vClass(d.verdict); $("verdict").textContent = "Overall: " + cap1(d.verdict);
+  $("headline").textContent = d.headline || "";
+  $("useRows").innerHTML = (d.uses||[]).map(u => `<tr><td><b>${esc(u.use)}</b></td><td><span class="verdict ${vClass(u.outlook)}">${esc(cap1(u.outlook))}</span></td><td>${esc(u.finding)}</td>${citeCell(u)}</tr>`).join("");
+  $("constraints").innerHTML = (d.constraints||[]).map(r => `<tr><td><b>${esc(r.rule)}</b></td><td>${esc(r.finding)}</td>${citeCell(r)}</tr>`).join("");
+  $("obstacles").innerHTML = (d.obstacles||[]).map(o => `<div class="obst"><h4>${esc(o.obstacle)}</h4><p>${esc(o.why)}</p><p class="counter">${esc(o.counterpoint)}</p><p class="hint" style="font-size:.85rem">Ask: ${esc(o.expert)}</p></div>`).join("");
+  $("financing").innerHTML = (d.financing||[]).map(f => `<li><b>${esc(f.source)}.</b> ${esc(f.fit)}</li>`).join("");
+  $("questions").innerHTML = (d.questions||[]).map(q => `<li>${esc(q)}</li>`).join("");
+}
+
+$("draftEmail").onclick = async () => {
+  const sample = await sampleP; if (!sample) return;
+  const k = $("eType").value, u = USES[k]; if (!u) return;
+  $("draftEmail").disabled = true; $("emailStatus").className = "status"; $("emailStatus").textContent = "Drafting…";
+  const rooms = S.rooms.filter(r => r.free && r.use === k).map(r => `${r.name} (${r.sqft} sq ft)`).join(", ");
+  const prompt = `Write a short first-contact email from ${S.pastor || "the pastor"} of ${S.church || "our church"} in ${S.city}, ${S.state} to a ${u.partner.name.toLowerCase()} about ${u.label.toLowerCase()}.
+${rooms ? "Space we could offer: " + rooms + "." : ""}
+Goal: ${S.goal === "serve" ? "serve neighbors" : S.goal === "income" ? "earn steady income for the church" : "serve neighbors and earn steady income"}.
+The main question: ${u.partner.ask}
+Tone: warm, humble, specific, under 170 words. Say we're early in exploring and will involve professionals before any commitment. Do not state zoning rules, prices or legal claims. Ask for a 30-minute conversation.
+Return ONLY JSON: {"subject":"...","body":"..."}`;
+  try {
+    const r = await sample.json(prompt, {modelTier:"quick"});
+    $("emailText").textContent = "Subject: " + (r.subject||"") + "\n\n" + (r.body||"");
+    $("emailOut").classList.remove("hidden"); $("emailStatus").textContent = "";
+  } catch(e) { $("emailStatus").className = "status err"; $("emailStatus").textContent = errCopy(e); }
+  finally { $("draftEmail").disabled = false; }
+};
+$("copyEmail").onclick = async () => {
+  try { await navigator.clipboard.writeText($("emailText").textContent); $("emailStatus").textContent = "Copied."; }
+  catch(e) { $("emailStatus").textContent = "Select the text above and copy it."; }
+};
+
+$("makePres").onclick = async () => {
+  const sample = await sampleP; if (!sample) return;
+  if (!feasData) { $("presStatus").className = "status err"; $("presStatus").textContent = "Get your feasibility read in step 4 first. The presentation is built from it."; return; }
+  $("makePres").disabled = true; $("presStatus").className = "status";
+  $("presStatus").textContent = "Drafting slides, a one-pager and talking points. This can take a minute.";
+  const prompt = `Write community presentation materials for ${S.church} at ${S.address}, ${S.city}, which is exploring new weekday uses of its building${chosenUses().includes("housing") ? " and possibly affordable housing on its land" : ""}. Audience: the church board, neighbors, and the city council or planning staff.
+
+Voice: warm, faith-aligned, humble. Frame the project as loving one's neighbor and faithful stewardship of space that sits empty most of the week, while respecting neighbors' concerns (traffic, parking, noise, property values, character). Persuasive but honest.
+Use ONLY facts from this feasibility read. Keep its hedges. Add no zoning rules, numbers or funding amounts. Say plainly this is an early exploration and that architects, a land-use attorney, licensing agencies and city planners will review everything. Name the kinds of partners the church would work with: ${chosenUses().map(k => USES[k].partner.name).join(", ")}.
+
+FEASIBILITY READ
+${JSON.stringify(feasData)}
+
+Return ONLY a JSON object, no markdown fences:
+{
+ "onepager": {"title":"...","tagline":"...","sections":[{"heading":"...","body":"2-4 sentences"}]},   // 4-5 sections
+ "talking_points": [ {"audience":"Church board","points":["..."]}, {"audience":"Neighbors","points":["..."]}, {"audience":"City council","points":["..."]} ],   // 4-5 each
+ "slides": [ {"title":"...","bullets":["..."],"notes":"1-2 sentences"} ]   // 7-8 slides; include one on concerns we've heard, one on partners, one on next steps with expert review
+}`;
+  try {
+    presData = await sample.json(prompt, {modelTier:"default"});
+    showPres(presData); markDirty(); $("presStatus").textContent = "";
+    $("pres").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  } catch(e) { $("presStatus").className = "status err"; $("presStatus").textContent = errCopy(e); }
+  finally { $("makePres").disabled = false; }
+};
+
+let si = 0;
+function showSlide(){
+  const s = (presData && presData.slides) || []; if (!s.length) return;
+  si = Math.max(0, Math.min(si, s.length-1)); const sl = s[si];
+  $("slide").innerHTML = `<div class="num">${si+1} of ${s.length}</div><h3>${esc(sl.title)}</h3><ul>${(sl.bullets||[]).map(b => `<li>${esc(b)}</li>`).join("")}</ul>`;
+  $("slideNotes").textContent = sl.notes ? "Speaker notes: " + sl.notes : "";
+  $("slideCount").textContent = `Slide ${si+1} of ${s.length}`;
+  $("prev").disabled = si === 0; $("next").disabled = si === s.length-1;
+}
+$("prev").onclick = () => { si--; showSlide(); };
+$("next").onclick = () => { si++; showSlide(); };
+function showPres(p){
+  $("pres").classList.remove("hidden"); si = 0; showSlide();
+  const o = p.onepager || {};
+  $("onepager").innerHTML = `<h3>${esc(o.title)}</h3><p class="tag">${esc(o.tagline)}</p>` + (o.sections||[]).map(s => `<h4>${esc(s.heading)}</h4><p>${esc(s.body)}</p>`).join("");
+  $("talk").innerHTML = (p.talking_points||[]).map(t => `<div class="tp"><h4>${esc(t.audience)}</h4><ul class="tight">${(t.points||[]).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
+  dlP.then(dl => { if (dl) { $("savePres").classList.remove("hidden"); $("savePres").onclick = () => savePresFile(dl); } });
+}
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+  document.querySelectorAll("[data-panel]").forEach(p => p.classList.toggle("hidden", p.dataset.panel !== b.dataset.tab));
+});
+async function savePresFile(dl){
+  const p = presData, o = p.onepager || {};
+  const slides = (p.slides||[]).map((s,k) => `<section class="s"><small>${k+1}</small><h2>${esc(s.title)}</h2><ul>${(s.bullets||[]).map(b => `<li>${esc(b)}</li>`).join("")}</ul><p class="n">${esc(s.notes||"")}</p></section>`).join("");
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>${esc(o.title||S.church)}</title>
+<style>body{font:16px/1.55 Georgia,serif;color:#1F2E3A;margin:0}.s{page-break-after:always;min-height:90vh;padding:8vh 8vw;background:#1F2E3A;color:#EEF2EE;box-sizing:border-box}.s h2{font-size:2.2rem;margin:.2em 0 .6em}.s li{font-size:1.25rem;margin:.3em 0}.n{opacity:.7;font-size:.9rem;margin-top:2em}.doc{max-width:70ch;margin:0 auto;padding:6vh 6vw}h1{margin:0}h3{margin-top:1.4em}.warn{border-left:4px solid #B8892B;padding-left:12px;font-size:.9rem}</style></head><body>
+${slides}<div class="doc"><h1>${esc(o.title)}</h1><p><em>${esc(o.tagline)}</em></p>${(o.sections||[]).map(s => `<h3>${esc(s.heading)}</h3><p>${esc(s.body)}</p>`).join("")}
+<h2>Talking points</h2>${(p.talking_points||[]).map(t => `<h3>${esc(t.audience)}</h3><ul>${(t.points||[]).map(x => `<li>${esc(x)}</li>`).join("")}</ul>`).join("")}
+<p class="warn">Early exploration only. Not a legal, zoning, licensing or financial determination. All findings require review by an architect, land-use attorney and city planner.</p></div></body></html>`;
+  const name = (S.church || "church").replace(/[^a-z0-9]+/gi, "-").toLowerCase() + "-presentation.html";
+  try { await dl.save({filename:name, data:html}); $("saveStatus").textContent = "Saved."; }
+  catch(e) { $("saveStatus").textContent = e.code === "declined" ? "Save cancelled." : "The file couldn't be saved here."; }
+}
+
+/* ---------------- step nav highlight ---------------- */
+const stepLinks = [...document.querySelectorAll("#steps a")];
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) stepLinks.forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + e.target.id ? "true" : "false"));
+}), {rootMargin:"-40% 0px -55% 0px"});
+document.querySelectorAll("section.step").forEach(s => io.observe(s));
+addEventListener("pagehide", () => { if (dirty) saveNow(); });
+fillForms(); renderAll();
+</script>
+</body>
+</html>
